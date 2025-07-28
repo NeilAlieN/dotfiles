@@ -1,0 +1,458 @@
+# MODULES_GFX 
+
+[module/space]
+type = custom/text
+format = "  "
+format-background = ${colors.background3}
+
+[module/dot]
+type = custom/text
+format = "%{T2}◦%{T-}"
+format-background = ${colors.background1} 
+format-foreground = #A1C2D3 
+format-padding = 1 
+
+[module/arrow-l]
+type = custom/text
+#format = "%{T2}%{T-}"
+format = "%{T2}󰇝%{T-}"
+format-background = ${colors.background3}
+format-foreground = #DC2C53
+format-padding = 1
+
+[module/arrow-r]
+type = custom/text
+#format = "%{T2}%{T-}"
+format = "%{T2}󰇝%{T-}"
+format-background = ${colors.background3}
+format-foreground = #DC2C53
+format-padding = 1
+
+[module/RD-A]
+type = custom/text
+format = "%{T3}%{T-}"
+format-background = ${colors.background3}
+format-foreground = ${colors.blue2}
+format-padding = 0
+
+[module/RD-D]
+type = custom/text
+format = "%{T3}%{T-}"
+format-background = ${colors.background3}
+format-foreground = ${colors.background2}
+
+# MODULES_APPS #########################################
+
+[module/displays]
+type = custom/text
+format = " "
+click-left = reset_displays
+click-right = display_off
+click-middle = feh --bg-max --randomize ~/Pictures/walls/digital/* ; DISPLAY=:1 feh --bg-max --randomize ~/Pictures/walls/digital/*
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+
+[module/wall_change]
+type = custom/text
+format = "󰋯 "
+click-left = ~/bin/themechanger_same 
+#click-right = ~/bin/themechanger_same
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+
+[module/redshift]
+type = custom/script
+exec = ~/polybar-scripts/info-redshift-temp.sh
+interval = 5
+
+[module/free]
+type= custom/script
+exec= ~/polybar-scripts/free_space.sh
+inteval = 1.0
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+format-background = ${colors.black}
+format-foreground = #8C8C8C
+
+[module/xwindow]
+type = internal/xwindow
+; Available tags:
+; <label> (default)
+format = <label>
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+format-padding = 0
+format-prefix-foreground = ${colors.foreground-x}
+format-prefix = " "
+
+
+; Available tokens:
+;   %title%
+; Default: %title%
+label = %title%
+label-maxlen =70 
+label-alignment = center
+
+; Used instead of label when there is no window title
+; Available tokens:
+;   None
+label-empty = Empty
+label-empty-foreground = ${colors.foreground}
+
+[module/i3]
+type = internal/i3
+format-backgound = ${colors.background}
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = false
+#true (mine)
+format-font = 2
+
+; Use fuzzy (partial) matching on labels when assigning
+; icons to workspaces
+; Example: code;♚ will apply the icon to all workspaces
+; containing 'code' in the label
+; Default: false
+fuzzy-match = false
+#true (mine)
+
+# COLORED NUMBERS
+#ws-icon-0=1;%{F#4C5C95}❶ %{F-}
+#ws-icon-1=2;%{F#A2EFEf}❷ %{F-}
+#ws-icon-2=3;%{F#20AF89}❸ %{F-}
+#ws-icon-3=4;%{F#FCFF00}❹ %{F-}
+#ws-icon-4=5;%{F#6C4C95}❺ %{F-}
+#ws-icon-5=6;%{F#E75598}❻ %{F-}
+#ws-icon-6=7;%{F#DEC2F8}❼ %{F-}
+#ws-icon-7=8;%{F#00FF40}❽ %{F-}
+#ws-icon-8=9;%{F#F33600}❾ %{F-}
+#ws-icon-9=10;%{F#8A98B8}❿ %{F-}
+
+# SYMBOLS
+#ws-icon-0 = 1; 
+#ws-icon-1 = 2;
+#ws-icon-2 = 3;
+#ws-icon-3 = 4;
+#ws-icon-4 = 5;
+#ws-icon-5 = 6;
+#ws-icon-6 = 7;
+#ws-icon-7 = 8;
+#ws-icon-8 = 9;
+#ws-icon-9 = 10;
+#ws-icon-default = " "
+
+# NUMBERS
+#ws-icon-0 = 1;1
+#ws-icon-1 = 2;2
+#ws-icon-2 = 3;3
+#ws-icon-3 = 4;4
+#ws-icon-4 = 5;5
+#ws-icon-5 = 6;6
+#ws-icon-6 = 7;7
+#ws-icon-7 = 8;8
+#ws-icon-8 = 9;9
+#ws-icon-9 = 10;10
+#ws-icon-default = " "
+
+# CIRCLE NUMBERS
+ws-icon-1 = 1;󰲠 
+ws-icon-2 = 2;󰲢 
+ws-icon-3 = 3;󰲤 
+ws-icon-4 = 4;󰲦 
+ws-icon-5 = 5;󰲨 
+ws-icon-6 = 6;󰲪 
+ws-icon-7 = 7;󰲬 
+ws-icon-8 = 8;󰲮 
+ws-icon-9 = 9;󰲰 
+ws-icon-0 = 10;󰲞 
+
+#label-dimmed-underline = ${root.background}
+
+; Available tags:
+;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
+;   <label-mode> (default)
+format = <label-state> <label-mode>
+
+; Available tokens:
+;   %mode%
+; Default: %mode%
+label-mode = %mode%
+label-mode-padding = 2
+#label-mode-background = ${colors.black}
+label-mode-background = ${colors.background} 
+label-mode-foreground = ${colors.foreground}
+label-mode-font = 1
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon% %name%
+label-focused = "%icon%" 
+label-focused-foreground = ${colors.foreground} 
+label-focused-background = ${colors.background}
+label-focused-underline = 
+label-focused-padding = 1
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-unfocused = %icon%
+label-unfocused-padding = 1
+label-unfocused-background = ${colors.background}
+label-unfocused-foreground = ${colors.foreground-y}
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-visible-background = ${colors.background}
+label-visible-foreground = ${colors.foreground-alt}
+label-visible = %icon%
+label-visible-underline = 
+label-visible-padding = 1
+
+; Available tokens::w
+
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-urgent = %icon%
+label-urgent-foreground = #000000
+label-urgent-background = #DC2553
+label-urgent-padding = 1
+
+; Separator in between workspaces
+#label-separator = ◦ 
+label-separator-padding = 1 
+label-separator-foreground = #A1C2D3
+label-separator-background = #212121
+
+[module/mpd]
+type = custom/script
+exec = ~/polybar-scripts/mpd_noicon.sh
+interval = 1.0
+format-prefix = "󰝚 " 
+format-prefix-foreground = ${colors.foreground-x}
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+click-left = mpc prev
+click-right = mpc next
+click-middle = mpc toggle
+scroll-up = mixer vol.volume=+0.05
+scroll-down = mixer vol.volume=-0.05
+label-maxlen=150
+tail =
+
+[module/cputemp]
+type= custom/script
+exec= ~/polybar-scripts/cputemp_noicon.sh
+inteval = 1.0
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground-x} 
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+click-left = kitty -e htop
+tail =
+format-font = 1 
+
+[module/hz]
+type= custom/script
+exec= ~/polybar-scripts/hz.sh
+inteval= 0.5
+format-prefix = "󰡵 "
+format-prefix-foreground = ${colors.foreground-x}
+format-background = ${colors.background}
+format-foreground = ${colors.foreground} 
+tail = 
+
+[module/mem]
+type= custom/script
+exec= ~/polybar-scripts/mem_simple.sh
+inteval = 0.5
+format-prefix = " " 
+format-prefix-foreground = ${colors.foreground-x}
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+tail = 
+
+#[module/mem]
+#type = internal/memory
+#format-prefix = " "
+#format-prefix-foreground = ${colors.foreground}
+#format-background = ${colors.blue_green}
+##format-background = ${colors.black}
+#format-foreground = #8C8C8C
+; Seconds to sleep between updates
+; Default: 1
+#interval = 3
+
+; Default: 90
+; New in version 3.6.0
+warn-percentage = 95
+
+#[module/cpu_usage]
+#type= custom/script
+#exec= ~/polybar-scripts/cpu_usage.sh
+#inteval = 0.5
+#format-prefix = " "
+##format-prefix-foreground = ${colors.black}
+#format-prefix-foreground = ${colors.foreground}
+##format-background = ${colors.blue}
+#format-background = ${colors.blue_green}
+##format-background = ${colors.background4}
+#format-foreground = #8C8C8C
+#tail =
+
+[module/cpu_usage]
+type = internal/cpu
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-x}
+format-background = ${colors.background}
+format-foreground = ${colors.forefround}
+; Seconds to sleep between updates
+; Default: 1
+interval = 0.5
+
+; Default: 80
+; New in version 3.6.0
+warn-percentage = 95
+
+[module/detailed]
+type = custom/script
+exec = ~/polybar-scripts/openweathermap-detailed/openweathermap-detailed.sh
+interval = 3600
+#label-font = 4 
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+click-right = chrome --new-window https://www.accuweather.com/en/us/sayre/18840/weather-radar/340495
+click-left = sleep 1s && kitty --name weather --title kitty-weather --hold -e curl wttr.in/Sayre+pa
+format-underline = 
+format-overline = 
+
+[module/date]
+type = internal/date
+interval = 1.0
+
+#date = "%b %Y-%m-%d-%A"
+date-alt = "  %b %Y-%m-%d-%A"
+#date-alt = " %r"
+#time = %r
+time = %l:%M %p %A
+time-alt = " %r"
+#time-alt = " %b %Y-%m-%d-%A"
+#format-prefix = "  "
+format-prefix-foreground = ${colors.foreground-x}
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+label-active-font = 1
+label = %time% %date% 
+format-underline = 
+format-overline = 
+
+[module/load-average]
+type = custom/script
+exec = uptime | grep -ohe 'load average[s:][: ].*' | awk '{ print $3" "$4" "$5"," }' | sed 's/,//g'
+interval = 1.0
+click-left = kitty -e doas top -a -P -q
+format-foreground = ${colors.grey2}
+format-background = ${colors.background3}
+format-prefix = "  "
+format-prefix-foreground = ${colors.blue2}
+#label-active-font = 1
+
+[module/hive]
+type = custom/script
+exec = ~/polybar-scripts/hive.sh 
+interval = 2.0
+#click-left = exec /home/neil/bin/vm0
+click-right = doas bhyvectl --force-poweroff --vm=vm0
+click-middle = vinagre --vnc-scale -f ::5900
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground-x}
+#label-active-font = 1
+
+[module/pkg]
+type = custom/script
+exec = ~/polybar-scripts/pkg.sh
+interval = 60
+format-foreground = ${colors.foregrouns}
+format-background = ${colors.background}
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground-x}
+#format-underline = #FF0000
+click-left = kitty --title=update --name=update -e doas pkg upgrade && ~/polybar-scripts/pkg.sh
+
+#tail = true
+
+[module/mixer]
+type = custom/script
+exec = ~/polybar-scripts/mixer_noc.sh
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground-x}
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+interval = 0.5
+scroll-up = mixer vol.volume=+0.05
+scroll-down = mixer vol.volume=-0.05
+click-left = mixer pcm.mute=^
+click-right = kitty -e mixertui
+
+[module/mic]
+type = custom/script
+exec = ~/polybar-scripts/mic.sh
+format-prefix =
+format-prefix-foreground =
+format-foreground = ${colors.red}
+format-background = ${colors.background4}
+interval = 0.5
+scroll-up = mixer -f /dev/mixer3 mic.volume=+0.05
+scroll-down = mixer -f /dev/mixer3 mic.volume=-0.05
+click-left = mixer -f /dev/mixer3 mic.mute=^
+
+[module/bandwidth]
+type = custom/script
+exec = ~/polybar-scripts/bandwidth.sh
+interval = 1.0
+format-prefix-foreground = ${colors.peach1}
+format-foreground = ${colors.white}
+format-background = ${colors.background3}
+
+[module/clock]
+type = custom/script
+exec = ~/polybar-scripts/clock.sh
+interval = 1.0
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+[module/nas]
+type = custom/script
+exec = ~/polybar-scripts/NAS_mount.sh
+interval = 1.0
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground-x}
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+click-left = mount_media
+click-right = umount ~/Media
+
+[module/maxproc]
+type = custom/script
+exec = ~/polybar-scripts/maxproc.sh
+interval = 1.0
+click-left = kitty -e htop
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-x}
+label-active-font = 1

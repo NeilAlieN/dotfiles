@@ -1,0 +1,5 @@
+# increase subtitle font size
+Alt+i add sub-scale +0.1
+
+# decrease subtitle font size
+Alt+Shift+i add sub-scale -0.1
