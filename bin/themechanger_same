@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nitrogen --random --set-zoom ~/Pictures/walls/digital/ --head=0 --save && sleep 2 && wal -i $(cat ~/.config/nitrogen/bg-saved.cfg | awk NR==2 | cut -d'=' -f2-) && i3-msg restart && sleep 2 && bash ~/git/ChromiumPywal/generate-theme.sh && sleep 2 && python3 ~/git/pywal_cava/wal_cava.py -i ~/.cache/wal/colors.json -c ~/.config/cava/config -G 8 && sleep 2 && clear && sleep 1 && echo "THEME CHANGED.  Thank you for using my pywal helper app :) : mysticalvisionary7585@gmail.com" && sleep 5 && clear
