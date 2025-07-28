@@ -1,0 +1,602 @@
+# vim:fileencoding=utf-8:foldmethod=marker
+
+##  .d8888b.  888       888        d8888 Y88b   d88P Y88b   d88P 8888888888
+## d88P  Y88b 888   o   888       d88888  Y88b d88P   Y88b d88P  888       
+## Y88b.      888  d8b  888      d88P888   Y88o88P     Y88o88P   888       
+##  "Y888b.   888 d888b 888     d88P 888    Y888P       Y888P    8888888   
+##     "Y88b. 888d88888b888    d88P  888     888        d888b    888       
+##       "888 88888P Y88888   d88P   888     888       d88888b   888       
+## Y88b  d88P 8888P   Y8888  d8888888888     888      d88P Y88b  888       
+##  "Y8888P"  888P     Y888 d88P     888     888     d88P   Y88b 888       
+
+#: VARIABLES {{{
+set $mod Mod4
+set $left DP-2 
+set $right DP-3
+set $gnome-schema org.gnome.desktop.interface
+#: }}}
+
+#: OUTPUTS {{{
+output DP-2 pos 0 0 mode 2560x1440@144.000Hz scale 1 subpixel rgb
+output DP-3 pos 2560 0 mode 2560x1440@144.000Hz scale 1 subpixel rgb
+#: }}}
+
+#: FX {{{
+#corner_radius 10 
+#shadows on
+#shadows_on_csd off
+#shadow_color #000000
+#shadow_blur_radius 20
+
+#blur off
+#blur_xray off
+#blur_passes 2
+#blur_radius 5
+#blur_contrast 1
+#blur_saturation 1
+#: }}}
+
+#: BASE {{{
+# BORDER #
+for_window [class=".*"] border pixel 4
+
+workspace_auto_back_and_forth yes
+focus_on_window_activation focus
+focus_follows_mouse yes
+hide_edge_borders smart
+
+# TITLE FONT #
+font pango:Noto Sans Regular 11 
+#font pango:DejaVu Sans Mono 8
+
+floating_modifier $mod
+bindsym $mod+Return exec kitty 
+bindsym $mod+KP_Enter exec kitty
+bindsym $mod+Shift+q kill
+#: }}}
+
+#: GAPS {{{
+smart_gaps on
+gaps inner 20
+#gaps outer  
+
+#gaps top 0
+#gaps bottom 0
+#gaps left 0
+#gaps right 0
+#: }}}
+
+#: GAP CONTROL {{{
+bindsym Mod1+plus exec i3-msg gaps inner all plus 2
+bindsym Mod1+minus exec i3-msg gaps inner all minus 2
+bindsym Mod1+0 exec i3-msg gaps inner all set 0
+bindsym Mod1+Shift+0 exec i3-msg gaps inner all set 10
+#: }}}
+
+#: LIMITS {{{
+# Min and Max Float size #
+#floating_minimum_size -1 x -1
+#floating_maximum_size 900 x 1024 
+#: }}}
+
+#: SCRATCHPAD {{{
+#bindsym $mod+Shift+s exec rofi -show scratchpad -modi "scratchpad: sh /home/neil/bin/rofi_i3_scratchpad"
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+for_window [class="KeePassXC"] move scratchpad
+for_window [app_id="org.qbittorrent.qBittorrent"] move scratchpad
+for_window [app_id="pavucontrol-qt"]          move scratchpad
+
+# SCRATCHPAD BINDINGS #
+
+# Keepassxc
+bindsym $mod+Shift+b [class="KeePassXC"] scratchpad show
+
+# MPV
+bindsym $mod+Shift+m [instance="gl"] scratchpad show
+
+# qbittorrent
+bindsym $mod+Shift+t [app_id="org.qbittorrent.qBittorrent"] scratchpad show, resize set 1900 px 1000 px, move position center
+
+# qutebrowser
+bindsym $mod+Shift+p [app_id="pavucontrol-qt"] scratchpad show, resize set 1900 px 1000 px, move position center
+
+# Chromium
+bindsym $mod+Shift+n [instance="chromium-browser"] scratchpad show, resize set 1900 px 1000 px, move position center
+
+# Firefox
+#bindsym $mod+Shift+n [instance="Navigator"] scratchpad show, resize set 1900 px 1000 px, move position center
+#: }}}
+
+#: AUDIO CONTROLS {{{
+#bindsym XF86AudioRaiseVolume exec mixer vol.volume=+0.05
+#bindsym XF86AudioLowerVolume exec mixer vol.volume=-0.05
+#bindsym XF86AudioMute exec mixer pcm.mute=^
+#bindsym XF86Tools exec mixer -f /dev/mixer3 mic.mute=^
+
+bindsym $mod+F3 exec mixer vol.volume=+0.05
+bindsym $mod+F2 exec mixer vol.volume=-0.05
+bindsym $mod+F4 exec mixer pcm.mute=^
+bindsym $mod+F1 exec kitty -e mixertui 
+
+# MEDIA KEYS #
+bindsym $mod+F5 exec mpc stop
+bindsym $mod+F6 exec mpc prev
+bindsym $mod+F7 exec mpc toggle
+bindsym $mod+F8 exec mpc next
+#: }}}
+
+#: AUTO TILING {{{
+# pkg install py311-autotiling
+#always autotiling
+#: }}}
+
+#: MENU {{{ 
+#bindsym $mod+d exec dmenu_run
+# A more modern dmenu replacement is rofi:
+# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+#bindsym $mod+d exec wmenu-run 
+
+bindsym $mod+d exec wofi --show=drun --allow-images
+bindsym $mod+r exec wofi --show=run
+#bindsym $mod+d exec ~/.config/rofi/launchers/type-3/launcher.sh
+bindsym $mod+Tab exec ~/bin/swindows1.sh 
+#: }}}
+
+#: CLIPBOARD {{{
+bindsym $mod+g exec cliphist list | wofi --show dmenu -H 600 -W 900 | cliphist decode | wl-copy 
+bindsym $mod+Shift+g exec rm_cliphist.sh
+#: }}}
+
+#: FOCUS / MOVE {{{
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left 
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# MOVE #
+# move focused window
+bindsym $mod+Shift+h move left 20px
+bindsym $mod+Shift+j move down 20px
+bindsym $mod+Shift+k move up 20px
+bindsym $mod+Shift+l move right 20px
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left 20px
+bindsym $mod+Shift+Down move down 20px
+bindsym $mod+Shift+Up move up 20px
+bindsym $mod+Shift+Right move right 20px
+#: }}}
+
+#: SPLIT / LAYOUT {{{
+# split in horizontal orientation
+bindsym $mod+c split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# LAYOUT
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle between stacking/tabbed/split
+bindsym $mod+x layout toggle
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle, resize set 1300 px 700 px, move position center
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle 
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+p focus child
+#: }}}
+
+#: WORKSPACES {{{
+#set $ws1 "1: "
+#set $ws2 "2: "
+#set $ws3 "3: "
+#set $ws4 "4: "
+#set $ws5 "5: "
+#set $ws6 "6: "
+#set $ws7 "7: "
+#set $ws8 "8: "
+#set $ws9 "9: "
+#set $ws10 "10: "
+
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 10
+
+# WORKSPACE VIA DISPLAY #
+workspace $ws1 output $left
+workspace $ws2 output $left
+workspace $ws3 output $left
+workspace $ws4 output $left
+workspace $ws5 output $left
+workspace $ws6 output $right
+workspace $ws7 output $right
+workspace $ws8 output $right
+workspace $ws9 output $right
+workspace $ws10 output $right
+
+# switch to workspace using the numberpad
+bindcode $mod+87 workspace number $ws1
+bindcode $mod+88 workspace number $ws2
+bindcode $mod+89 workspace number $ws3
+bindcode $mod+83 workspace number $ws4
+bindcode $mod+84 workspace number $ws5
+bindcode $mod+85 workspace number $ws6
+bindcode $mod+79 workspace number $ws7
+bindcode $mod+80 workspace number $ws8
+bindcode $mod+81 workspace number $ws9
+bindcode $mod+90 workspace number $ws10
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace using the numberpad
+bindcode $mod+Shift+87 move container to workspace number $ws1
+bindcode $mod+Shift+88 move container to workspace number $ws2
+bindcode $mod+Shift+89 move container to workspace number $ws3
+bindcode $mod+Shift+83 move container to workspace number $ws4
+bindcode $mod+Shift+84 move container to workspace number $ws5
+bindcode $mod+Shift+85 move container to workspace number $ws6
+bindcode $mod+Shift+79 move container to workspace number $ws7
+bindcode $mod+Shift+80 move container to workspace number $ws8
+bindcode $mod+Shift+81 move container to workspace number $ws9
+bindcode $mod+Shift+90 move container to workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+#: }}}
+
+#: WINDOW RULES  {{{
+for_window [all]                                            title_window_icon on 
+#for_window [urgent="latest"]                                focus
+for_window [title="Beestie"]                             border none
+for_window [class="(?i)Dunst"]                              border pixel 0
+for_window [class="Xdaliclock"]                             floating enable, sticky enable, move position 4814 px 44 px, resize set 299 px 90 px
+for_window [class="dsbmixer"]                               floating enable, move position center
+for_window [app_id="org.qbittorrent.qBittorrent"]           floating enable, move position center
+for_window [title="Remove torrent(s)"]                      floating enable, move position center, resize set 730 px 318 px 
+for_window [title="Exiting qBittorrent"]                    focus
+for_window [title="E-book viewer"]                          floating enable, resize set 960 px 1000 px
+#for_window [class="^Google-chrome$"]                        focus
+for_window [class="^Chromium$"]                             focus
+#for_window [class="^firefox$"]                              focus   
+for_window [class="(?i)Thunderbird"]                        focus
+for_window [title="Torrent Options"]                        sticky enable
+for_window [title="Confirmation needed"]                    floating enable
+for_window [title="Unlock Database - KeePassXC"]            focus, sticky enable, move position center
+for_window [title="Save database as"]                       sticky enable, move position center
+for_window [title="Generate Password"]                      sticky enable
+for_window [title="(?:Open|Save) (?:File|Folder|As)"]       floating enable, sticky enable
+for_window [title="jpeg bitmap image import"]               focus                
+for_window [class="Gimp"]                                   focus
+for_window [title="Change file attributes"]                 floating enable
+for_window [title="New document 1 - Inkscape"]              focus 
+for_window [title="MyPaint"]                                focus
+for_window [title="Unsaved packets..."]                     focus
+for_window [class="XCalc"]                                  floating enable
+for_window [class="^mpv$"]                                  floating enable, sticky enable, resize set 1300 px 700 px, move position center
+for_window [class="^gl$"]                                   floating enable, sticky enable, resize set 1300 px 700 px, move position center
+for_window [window_role="pop-up"]                           floating enable
+for_window [window_role="bubble"]                           floating enable
+for_window [window_role="task_dialoge"]                     floating enable
+for_window [window_role="Preferences"]                      floating enable
+for_window [window_type="dialog"]                           floating enable
+for_window [window_role="menu"]                             floating enable
+for_window [class="Nitrogen"]                               floating enable, move position center
+for_window [app_id="waypaper"]                               floating enable, move position center
+for_window [title="Open Image"]                             floating enable, move position center
+for_window [title="Create a New Image"]                     floating enable, move position center
+for_window [class="Lxappearance"]                           floating enable
+for_window [class="^Nvidia-settings$"]                      floating enable
+for_window [class="qt5ct" instance="qt5ct"]                 floating enable, move position center
+for_window [class="qt6ct" instance="qt6ct"]                 floating enable, move position center
+for_window [instance="__scratchpad"]                        floating enable, resize set 1300 px 700 px, move position center
+for_window [class="(?i)Simplescreenrecorder"]               floating enable
+for_window [class="solarus-launcher"]                       floating enable
+for_window [title="Messenger call - Chromium"]              floating enable, sticky enable, resize set 768 px 1038 px, move position 1784 px 40 px
+for_window [title="Messenger call — Mozilla Firefox"]       floating enable, sticky enable, resize set 768 px 1038 px, move position 1784 px 40 px
+for_window [class="libreoffice-writer"]                     move to workspace 9
+for_window [class="libreoffice"]                            move to workspace 9
+for_window [title="Untitled 1 — LibreOffice Writer"]        move to workspace 9
+for_window [class="libreoffice"]                            move to workspace 9
+for_window [title="XDaliClock Preferences"]                 floating enable, resize set 226 px 591 px, move position center
+for_window [class="Florence"]                               floating enable, move position center
+for_window [class="org.inkscape.Inkscape"]                  move to workspace 7, focus
+for_window [class="Yad"]                                    floating enable, resize set 299 px 234 px, move position 4815 px 154 px
+for_window [title="YAD settings"]                           floating enable, move position center
+for_window [title="Gluqlo 1.1"]                             fullscreen
+for_window [class="kitty" instance="update"]                floating enable, resize set 1300 px 700 px, move position center
+for_window [class="feh"]                                    floating enable, resize set 1900 px 1000 px, move position center
+for_window [title="mixertui"]                               floating enable, resize set 1300 px 700 px, move position center
+for_window [class="Gcolor3"]                                floating enable, move position center
+for_window [title="Magnus"]                                 floating enable
+for_window [class="dmenu"]                                  floating enable, move position center
+for_window [title="wdisplays"]                              floating enable, resize set 1024 px 768 px, move position center
+for_window [app_id="xonotic"]                               move to workspace 5, focus
+#: }}}
+
+#: LOAD / RESTART {{{
+# reload the configuration file
+bindsym $mod+Shift+c           reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r           restart
+#: }}}
+
+#: RESIZE {{{
+bindsym $mod+Ctrl+Right          resize shrink width 10 px or 10 ppt
+bindsym $mod+Ctrl+Up             resize grow height 10 px or 10 ppt
+bindsym $mod+Ctrl+Down           resize shrink height 10 px or 10 ppt
+bindsym $mod+Ctrl+Left           resize grow width 10 px or 10 ppt
+
+bindsym $mod+Ctrl+l              resize shrink width 10 px or 10 ppt
+bindsym $mod+Ctrl+j              resize grow height 10 px or 10 ppt
+bindsym $mod+Ctrl+k              resize shrink height 10 px or 10 ppt
+bindsym $mod+Ctrl+h              resize grow width 10 px or 10 ppt
+
+# RESIZE/CENTER WINDOWS ON THE FLY #
+bindsym $mod+Shift+a resize set 1300 px 700 px, move position center
+bindsym Mod1+Shift+c exec i3-msg move position center
+#: }}}
+
+#: APP BINDINGS {{{
+
+# Help ?
+bindsym F1 exec chrome --new-window https://github.com/swaywm/sway/wiki
+for_window [title="Home · swaywm/sway Wiki · GitHub - Chromium"] move to workspace 6, floating enable, resize set 1236 px 1386 px, move position center, focus
+# Calculator
+bindsym $mod+F12 exec rofi -show calc
+bindsym $mod+Shift+F12 exec rm ~/.local/share/rofi/rofi_calc_history
+# Misc
+bindsym $mod+F9 exec thunderbird
+bindsym $mod+m exec chrome 
+bindsym $mod+Shift+i exec chrome --incognito
+#bindsym $mod+Shift+i exec firefox --private-window
+bindsym Mod1+Shift+t exec ssh node0 tor-browser
+bindsym $mod+t exec xdaliclock
+bindsym Mod1+g exec gimp
+bindsym Mod1+i exec inkscape
+# Emoji
+bindsym $mod+y exec wofimoji -f "--cache-file=$HOME/.cache/wofi-wofimoji"
+# Polybar
+bindsym $mod+period exec polybar-msg cmd toggle
+bindsym Mod1+Shift+p exec bash ~/bin/wl-color-picker.sh
+# Standard bar ie: i3status / i3blocks
+bindsym $mod+comma bar mode toggle
+# Magnifier
+bindsym Mod1+m exec wooz
+# Mount Media (NAS)
+bindsym $mod+z exec mount_media
+bindsym $mod+Shift+z exec umount ~/Media
+# Bhyve
+bindsym Mod1+b exec vm0
+bindsym Mod1+Shift+b exec sleep 5 && doas bhyvectl --destroy --vm=vm0
+bindsym Mod1+v exec vinagre --vnc-scale -f ::5900
+# Redshift
+bindsym Mod1+r exec redshift
+bindsym Mod1+Shift+r exec pkill -f redshift
+# Other
+bindsym Mod1+c exec yad --calendar --title cal
+bindsym $mod+i exec kitty --session startup.conf
+bindsym Mod1+t exec gluqlo -ampm -r 2560x1440
+bindsym $mod+u exec kitty --title=update --name=update -e doas pkg upgrade && sleep 2 && polybar-msg cmd restart
+bindsym $mod+Ctrl+t exec polybar-msg action "#date.toggle"
+#: }}}
+
+#: MENU MODE LAUNCHER {{{
+set $mode_launcher %{F#F5C330}%{F-} %{F#7Db5E4}󰰅%{F#B7B7B7}3  %{F#7Db5E4}󰰋%{F#B7B7B7}itty  %{F#7Db5E4}󰰚%{F#B7B7B7}icom  %{F#7Db5E4}󰯰%{F#B7B7B7}ar  %{F#7Db5E4}󰰸%{F#B7B7B7}shrc  %{F#7Db5E4}󰰂%{F#B7B7B7}istory  %{F#7Db5E4}󰰠%{F#B7B7B7}ofi
+bindsym $mod+o mode "$mode_launcher"
+
+mode "$mode_launcher" {
+    bindsym i exec kitty --name="editing i3" --title="editing i3" -e vim ~/.config/i3/config, mode "default" 
+    bindsym k exec kitty --name="editing kitty" --title="editing kitty" -e vim ~/.config/kitty/kitty.conf, mode "default"
+    bindsym p exec kitty --name="editing picom" --title="editing picom" -e vim ~/.config/picom.conf, mode "default"
+    bindsym b exec kitty --name="editing polybar" --title="editing polybar" -e vim ~/.config/polybar/config.ini, mode "default"
+    bindsym z exec kitty --name="editing zsh" --title="editing zsh" -e vim ~/.zshrc, mode "default"
+    bindsym h exec kitty --name="editing history" --title="editing history" -e vim ~/.zsh_history, mode "default"
+    bindsym r exec kitty --name="editing rofi" --title="editing rofi" -e vim ~/.config/rofi/launchers/type-5/style-4.rasi, mode "default"
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym q mode "default"
+}
+
+for_window [instance="editing i3"] floating enable, resize set 1380 px 979 px, move position center
+for_window [instance="editing kitty"] floating enable, resize set 1380 px 979 px, move position center
+for_window [instance="editing picom"] floating enable, resize set 1380 px 979 px, move position center
+for_window [instance="editing polybar"] floating enable, resize set 1380 979 px, move position center
+for_window [instance="editing zsh"] floating enable, resize set 1380 px 979 px, move position center
+for_window [instance="editing history"] floating enable, resize set 1380 px 979 px, move position center
+for_window [instance="editing rofi"] floating enable, resize set 1380 px 979 px, move position center
+#: }}}
+
+#: SCREENSHOT / SCREEN SETTINGS / WALLPAPER {{{
+
+bindcode $mod+106 exec shot.sh
+
+bindcode $mod+63 exec swaylock -F --clock -i ~/newimage.png --indicator-image ~/Downloads/Freebsd.png --indicator-radius 250
+
+# WALLPAPER SETTER #
+bindsym $mod+b exec waypaper
+#bindsym $mod+r exec nitrogen --set-zoom-fill --random
+#: }}}
+
+#: STARTUP APPS {{{
+#exec /usr/local/libexec/polkit-gnome-authentication-agent-1
+#exec redshift
+exec waypaper --restore
+exec musicpd
+exec rm *.core
+exec_always gsettings set $gnome-schema gtk-theme Orchis-Dark
+exec_always gsettings set $gnome-schema icon-theme Papirus-Dark
+exec_always gsettings set $gnome-schema cursor-theme Bibata-Modern-Classic
+exec_always gsettings set $gnome-schema font-name Noto Sans 12
+exec pavucontrol-qt 
+exec pipewire
+exec /usr/local/libexec/xdg-desktop-portal-wlr
+exec /usr/local/libexec/xdg-desktop-portal -r
+exec wl-paste --primary --watch cliphist store
+exec rm "/home/neil/.cache/cliphist/db"
+# Enable Xwayland
+#xwayland enable
+#: }}}
+
+#: WORKSPACE LAYOUTS {{{
+exec "i3-msg 'workspace 1; append_layout /home/neil/.config/i3/workspace-1.json'"
+exec "i3-msg 'workspace 2; append_layout /home/neil/.config/i3/workspace-2.json'"
+exec "i3-msg 'workspace 3; append_layout /home/neil/.config/i3/workspace-3.json'"
+exec "i3-msg 'workspace 4; append_layout /home/neil/.config/i3/workspace-4.json'"
+#exec "i3-msg 'workspace 5; append_layout /home/neil/.config/i3/workspace-5.json'"
+#exec "i3-msg 'workspace 6; append_layout /home/neil/.config/i3/workspace-6.json'"
+#exec "i3-msg 'workspace 7; append_layout /home/neil/.config/i3/workspace-7.json'"
+#exec "i3-msg 'workspace 8; append_layout /home/neil/.config/i3/workspace-8.json'"
+#exec "i3-msg 'workspace 9; append_layout /home/neil/.config/i3/workspace-9.json'"
+#exec "i3-msg 'workspace 0; append_layout /home/neil/.config/i3/workspace-0.json'"
+#: }}}
+
+#: ASSIGN {{{
+assign [class="^kitty$" instance="^weechat$"] $ws5
+assign [class="^kitty$" instance="^mc$"] $ws3
+assign [class="thunderbird"] $ws8
+assign [class="Gimp"] $ws7
+assign [class="MyPaint"] $ws7
+assign [class="qutebrowser"] $ws2
+assign [class="Google-chrome"] $ws2
+assign [app_id="chromium-browser"] $ws2
+assign [class="firefox"] $ws2
+assign [class="(?i)vinagre"] $ws10
+assign [title="New document 1 - Inkscape"] $ws7
+assign [class="libreoffice"] $ws9
+assign [class="libreoffice-writer"] $ws9 
+assign [class="org.inkscape.Inkscape"] $ws7
+assign [class="Thunar"] $ws3
+assign [app_id="xonotic"] $ws5 
+#: }}}
+
+#: LAYOUT STARTUP APPS {{{
+# WORKSPACE 1
+exec sleep 4 && i3-msg 'workspace 1; exec kitty'
+
+# WORKSPACE 2
+exec sleep 4 && i3-msg 'workspace 2; exec chrome --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu-compositing'
+
+# WORKSPACE 3
+exec sleep 4 && i3-msg 'workspace 3; exec kitty -e yazi'
+
+# WORKSPACE 4
+exec sleep 4 && i3-msg 'workspace 4; exec kitty -e ncmpcpp'
+
+# OTHER
+#exec pkill -f dunst & sleep 1 && dunst -config ~/.config/dunst/dunstrc
+#exec sleep 5 && clipmenud
+exec mako
+#exec sleep 6 && osdmixer 833 30 6 2 2 &
+exec sleep 8 && keepassxc ~/Downloads/Passwords.kdbx
+#exec picom --config ~/.config/picom.conf -b &
+#exec /home/neil/git/picom/build/src/picom --dbus --config ~/.config/picom.conf -b &
+
+# REFRESH
+#exec sleep 6 && i3-msg restart
+#: }}}
+
+#: WEATHER TERMINAL {{{
+bindsym Mod1+w exec sleep 1s && kitty --name weather --title kitty-weather --hold -e curl wttr.in/Sayre+pa
+for_window [instance="weather"] floating enable, border none, resize set 1296 866px, move position center
+#: }}}
+
+#: BARS {{{
+bar {
+    position top
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+#    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    swaybar_command waybar
+
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+#: }}}
+
+#: TRAY / SEPERATOR {{{
+# tray_output none|primary|<output>
+#tray_output primary
+
+# separator between bar sections
+#separator_symbol " | "
+
+#}
+#: }}}
+
+include "$HOME/.cache/wal/colors-sway"
+
+#output DP-2 background $wallpaper fill
+#output DP-3 background $wallpaper fill
+
+client.focused $color0 $background $foreground $color7 $background
+
+#: COLORS {{{
+
+#client.focused          #a97d1a #7DB5E4 #000000 #3C72B1 #C7A833
+#client.focused_inactive #333333 #636363 #FFFFFF #484E50 #5F676A
+#client.unfocused        #333333 #292D2E #5F676A #292D2E #292D2E
+#client.urgent           #000000 #900000 #FFFFFF #900000 #434758
+#client.placeholder      #000000 #0C0C0C #FFFFFF #000000 #0C0C0C
+#: }}}
+
+#: EXIT {{{
+bindsym $mod+Shift+e exec wlogout 
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+#: }}}
