@@ -1,0 +1,28 @@
+sw_volume: 72
+audio_device_state:1:Default OSS Device
+audio_device_state:1:my_fifo
+state: stop
+current: 0
+random: 0
+repeat: 0
+single: 0
+consume: 0
+crossfade: 0
+mixrampdb: 0
+mixrampdelay: -1
+lastloadedplaylist: 
+playlist_begin
+0:ATB/[2003] Addicted To Music (Limited Edition)/01 - ATB - In Love With The Dj.mp3
+1:ATB/[2003] Addicted To Music (Limited Edition)/02 - ATB - I Don't Wanna Stop.mp3
+2:ATB/[2003] Addicted To Music (Limited Edition)/03 - ATB - Everything Is Wrong.mp3
+3:ATB/[2003] Addicted To Music (Limited Edition)/04 - ATB - Long Way Home.mp3
+4:ATB/[2003] Addicted To Music (Limited Edition)/05 - ATB - We Belong.mp3
+5:ATB/[2003] Addicted To Music (Limited Edition)/06 - ATB - Gentle Melody.mp3
+6:ATB/[2003] Addicted To Music (Limited Edition)/07 - ATB - I Will Not Forget.mp3
+7:ATB/[2003] Addicted To Music (Limited Edition)/08 - ATB - Break My Heart.mp3
+8:ATB/[2003] Addicted To Music (Limited Edition)/09 - ATB - Sunset Girl.mp3
+9:ATB/[2003] Addicted To Music (Limited Edition)/10 - ATB - Do You Love Me.mp3
+10:ATB/[2003] Addicted To Music (Limited Edition)/11 - ATB - Peace Illusion.mp3
+11:ATB/[2003] Addicted To Music (Limited Edition)/12 - ATB - Trilogy.mp3
+12:ATB/[2003] Addicted To Music (Limited Edition)/13 - ATB - Cabana Moon.mp3
+playlist_end
