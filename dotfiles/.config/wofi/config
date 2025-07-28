@@ -1,0 +1,17 @@
+exclusive = true
+anchor_left = false
+anchor_right = false
+anchor_top = false
+anchor_bottom = false
+frequent_first = true
+margin_top = 0
+margin_bottom = 0
+margin_left = 0
+margin_right = 0
+width = 700
+height = 400
+prompt = Type to search...
+hide_scroll = true
+image_size = 48
+command_prefix = ":"
+term_command = "kitty -e {}"
